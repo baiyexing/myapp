@@ -18,7 +18,6 @@ class Question:
         self.probability = probability
 
         result = self.expression2(self.count)
-        #print(result)
         self.expression_array = result['expression_array']
         self.expression = result['expression']
         self.answer = result['answer']
@@ -114,7 +113,7 @@ class Question:
                 list.append(factors)
         return list
 
-    def expression2(self,count):
+    def expression2(self,count):#生成式子
         if count == 1:
             figure = self.getnumber()
             return{
@@ -198,7 +197,8 @@ class Parameter :
             if argv[i] =='-h':
                 i += 1
                 print(' -h','获取帮助\n','-n','生成的算式数量（默认10）\n','-r','生成数字的大小范围（默认10）\n',
-                      '-c','运算符的数量（最少为1，最多为3（默认3）)\n','-p', '生成分数的概率（最大为1.0，最小为0.0(默认0.5)）')
+                      '-c','运算符的数量（最少为1，最多为3（默认3）)\n','-p', '生成分数的概率（最大为1.0，最小为0.0(默认0.5)）\n',
+                      '-e...','判定答案中的对错并进行数量统计')
             elif argv[i] == '-n':
                 i += 1
                 try:
@@ -265,11 +265,11 @@ class Parameter :
             i += 1
         E.close()
         A.close()
-    def write_grade(self,grade):
+    def write_grade(self,grade):#写入做题结果文件
         G = open('Grade.txt',"w")
         G.write('Correct:'+ str(len(grade[0])) + str(grade[0])+'\n'+ 'Wrong:'+ str(len(grade[1])) + str(grade[1])+'\n')
         G.close()
-    def get_answers(self):
+    def get_answers(self):#获得用户答案
         with open('Exercises.txt',"r",encoding="gbk") as file:
             lines = file.readlines()
             list = []
@@ -278,7 +278,7 @@ class Parameter :
                 answer1 = answer.replace(' ','')
                 list.append(answer1)
         return list
-    def checks(self,list):
+    def checks(self,list):#比对答案
         with open('Answer.txt',"r",encoding="gbk") as f:
             lines = f.readlines()
             listA =[]
