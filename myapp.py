@@ -91,27 +91,17 @@ class Question:
         return result
 
     def Simple_fraction(self,numerator,denominator):#化为最简分数
-        numerator_factors = self.get_factors(numerator)
-        denominator_factors = self.get_factors(denominator)
-
-        if len(numerator_factors)==0 or len(denominator_factors)==0:
-            return [numerator,denominator]
-        else :
-            flage = 0
-            for factor in numerator_factors:
-                if factor in denominator_factors:
-                    flage = factor
-            if flage != 0:
-                numerator = int (numerator/flage)
-                denominator = int (denominator/flage)
+            flage = self.Common_factor(numerator,denominator )
+            numerator = int (numerator/flage)
+            denominator = int (denominator/flage)
             return [numerator,denominator]
 
-    def get_factors(self,figure):#获得数的因数列表
-        list = []
-        for factors in range(2,figure+1):
-            if (figure % factors) == 0:
-                list.append(factors)
-        return list
+    def Common_factor(self,numerator,denominator):#辗转相除获得最大公约数
+        numerator,denominator = denominator,numerator%denominator
+        if denominator == 0:
+            return numerator
+        else:
+            return self.Common_factor( numerator, denominator)
 
     def expression2(self,count):#生成式子
         if count == 1:
